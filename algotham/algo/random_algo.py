@@ -14,7 +14,7 @@ class RandomAlgo(BaseAlgo):
         company_code: int,
         dt: datetime,
     ) -> float:
-        return random.rand() > 0.5
+        return 1.0 if random.rand() > 0.5 else -1.0
 
     @overrides
     def train(self):
