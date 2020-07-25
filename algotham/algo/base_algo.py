@@ -1,5 +1,5 @@
-from datetime import datetime
 from abc import ABCMeta, abstractmethod
+from datetime import datetime
 
 
 class BaseAlgo(metaclass=ABCMeta):
