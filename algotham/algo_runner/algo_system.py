@@ -4,7 +4,6 @@ from ..rule import (
     BaseStockSelectionRule,
     BaseVolumeRule
 )
-from ..timer.base_timer import BaseTimer
 from ..timer import (
     BaseTimer,
     RealtimeTimer
@@ -26,13 +25,20 @@ class AlgoSystem:
         self._stock_selection_rule = stock_selection_rule
         self._volume_rule = volume_rule
         self._timer = timer
+        self._timing_rule.set_context(self)
+        self._stock_selection_rule.set_context(self)
+        self._volume_rule.set_context(self)
 
     def run(self):
 
         while True:
-            timing_rule.wait_for_next(self)
+            self._timing_rule.wait_for_next()
 
-            selected_stocks = self._stock_selection_rule.select_stocks(self)
+            selected_stocks = self._stock_selection_rule.select_stocks()
 
             for stock in selected_stocked:
-                volume = self._volume_rule.decide_volume(self, stock)
+                volume = self._volume_rule.decide_volume(stock)
+
+    @property
+    def timer(self):
+        return self._timer
