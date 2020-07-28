@@ -17,4 +17,5 @@ class BaseTimingRule(BaseRule, metaclass=ABCMeta):
             raise Exception('system is not set')
 
         while self.context.timer.get_time() < until_dt:
+            self.context._updated = True
             time.sleep(0.01)

@@ -1,3 +1,4 @@
+import time
 from datetime import datetime
 
 from .algo_system import AlgoSystem
@@ -17,13 +18,11 @@ class SimulatedAlgoSystem(AlgoSystem):
 
     def __init__(
         self,
-        algo: BaseAlgo,
         timing_rule: BaseTimingRule,
         stock_selection_rule: BaseStockSelectionRule,
         volume_rule: BaseVolumeRule,
     ):
         super().init(
-            algo,
             timing_rule,
             stock_selection_rule,
             volume_rule,
@@ -32,3 +31,6 @@ class SimulatedAlgoSystem(AlgoSystem):
 
     def set_time(self, dt: datetime) -> None:
         self.timer.set_time(dt)
+        self._updated = False
+        while not self._updated:
+            time.sleep(0.001)
