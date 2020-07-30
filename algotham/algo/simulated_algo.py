@@ -1,7 +1,7 @@
 import time
 from datetime import datetime
 
-from .algo_system import AlgoSystem
+from .algo_system import Algo
 from ..algo.base_algo import BaseAlgo
 from ..rule import (
     BaseTimingRule,
@@ -14,7 +14,7 @@ from ..timer import (
 )
 
 
-class SimulatedAlgoSystem(AlgoSystem):
+class SimulatedAlgo(Algo):
 
     def __init__(
         self,

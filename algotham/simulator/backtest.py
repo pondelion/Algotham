@@ -1,11 +1,13 @@
 from datetime import datetime, timedelta
 
+from ..algo import SimulatedAlgo
+
 
 class BackTest:
 
     def __init__(
         self,
-        algo_system: SimulatedAlgoSystem,
+        algo_system: SimulatedAlgo,
         start_dt: datetime,
         end_dt: datetime
     ):

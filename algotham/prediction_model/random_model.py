@@ -3,10 +3,10 @@ from datetime import datetime
 
 from overrides import overrides
 
-from .base_algo import BaseAlgo
+from .base_model import BaseModel
 
 
-class RandomAlgo(BaseAlgo):
+class RandomModel(BaseModel):
 
     @overrides
     def predict(

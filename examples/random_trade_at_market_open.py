@@ -13,7 +13,7 @@ from algotham.rule import (
     BaseVolumeRule
 )
 from algotham.data.stock import Stock
-from algotham.algo_runner import SimulatedAlgoSystem
+from algotham.algo_runner import SimulatedAlgo
 
 
 # 毎日マーケットオープン時に候補銘柄からランダムに銘柄抽出し、ランダムなボリュームで売買行う例
@@ -61,7 +61,7 @@ class RandomVolumeRule(BaseVolumeRule):
         return random.randint(-5, 5)
 
 
-random_trade_system = SimulatedAlgoSystem(
+random_trade_system = SimulatedAlgo(
     timing_rule=MarketOpeningTimingRule(),
     stock_selection_rule=RandomStockSelectionRule(),
     volume_rule=RandomVolumeRule(),

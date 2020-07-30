@@ -12,7 +12,7 @@ from ..portfolio import Portfolio
 from ..data.stock import Stock
 
 
-class AlgoSystem:
+class Algo:
 
     def __init__(
         self,
