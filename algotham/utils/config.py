@@ -10,11 +10,6 @@ DEFAULT_AWS_FILEPATH = os.path.join(
     '..',
     'config/aws.yml'
 )
-DEFAULT_TWITTER_FILEPATH = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)),
-    '..',
-    'config/twitter.yml'
-)
 DEFAULT_DATALOCATION_FILEPATH = os.path.join(
     os.path.dirname(os.path.abspath(__file__)),
     '..',
@@ -101,10 +96,3 @@ class DataLocationConfig(metaclass=_DataLocationConfig):
 
 class DevConfig(metaclass=_DevConfig):
     pass
-
-
-TABLE_NAME_MAPPING = {
-    'dynamodb': {
-        'twitter': 'finapp_twitter_tweet'
-    }
-}
