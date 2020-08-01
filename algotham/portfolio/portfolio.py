@@ -18,38 +18,14 @@ class Portfolio:
         self._cash = cash
         self._stock_volume = copy(stock_volume)
 
-    def transact(
+    def update(
         self,
-        dt: datetime,
+        cash: int,
         stock: Stock,
         volume: int,
-        transaction_cost: int,
-    ) -> bool:
-
-        if volume == 0:
-            return False
-
-        try:
-            price = stock[dt] * volume
-        except StockDataNotFoundException as e:
-            print(e)
-            return False
-
-        # If the cash is insufficient to buy stock, skip buying.
-        if volume >= 0 and price + transaction_cost > self._cash:
-            return False
-
-        # If the stock is insufficient to sell, skip selling.
-        if volume < 0 and stock.code not in self._stock_volume:
-            return False
-        elif volume < 0 and self._stock_volume[stock.code] < abs(volume):
-            return False
-
-        print('buy/sell')
-        self._cash -= price + transaction_cost
+    ) -> None:
+        self._cash += cash
         if stock.code in self._stock_volume:
             self._stock_volume[stock.code] += volume
         else:
             self._stock_volume[stock.code] = volume
-
-        return True
