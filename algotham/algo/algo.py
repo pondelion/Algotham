@@ -1,15 +1,15 @@
-from ..algo.base_algo import BaseAlgo
-from ..rule import (
-    BaseTimingRule,
-    BaseStockSelectionRule,
-    BaseVolumeRule
-)
+import threading
+
+from ..rule.timing_rule.base_timing_rule import BaseTimingRule
+from ..rule.stock_selection_rule.base_stock_selection_rule import BaseStockSelectionRule
+from ..rule.volume_rule.base_volume_rule import BaseVolumeRule
 from ..timer import (
     BaseTimer,
     RealtimeTimer
 )
 from ..portfolio import Portfolio
 from ..data.stock import Stock
+from ..recorder import Recorder
 
 
 class Algo:
@@ -33,7 +33,12 @@ class Algo:
         self._updated = False
 
     def run(self):
+        self._thread = threading.Thread(
+            target=self._run
+        )
+        self._thread.start()
 
+    def _run(self):
         while True:
             self._timing_rule.wait_for_next()
 
@@ -45,10 +50,15 @@ class Algo:
                     self.timer.get_time()
                 )
                 if self._transact(stock, volume):
+                    pass
 
     @property
     def timer(self):
         return self._timer
+
+    @property
+    def recorder(self):
+        return self._recorder
 
     def _transact(
         self,

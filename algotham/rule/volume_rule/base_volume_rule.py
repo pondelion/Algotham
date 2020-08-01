@@ -8,7 +8,7 @@ from ...data.stock import Stock
 class BaseVolumeRule(BaseRule, metaclass=ABCMeta):
 
     @abstractmethod
-    def decice_volume(
+    def decide_volume(
         self,
         stock: Stock,
         dt: datetime

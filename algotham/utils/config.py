@@ -26,10 +26,6 @@ def _load_aws_config(filepath: str = DEFAULT_AWS_FILEPATH):
     return yaml.safe_load(open(filepath))
 
 
-def _load_twitter_config(filepath: str = DEFAULT_TWITTER_FILEPATH):
-    return yaml.safe_load(open(filepath))
-
-
 def _load_datalocation_config(filepath: str = DEFAULT_DATALOCATION_FILEPATH):
     return yaml.safe_load(open(filepath))
 
@@ -40,17 +36,6 @@ def _load_dev_config(filepath: str = DEFAULT_DEV_FILEPATH):
 
 class _AWSConfig(type):
     config = _load_aws_config()
-
-    def __getattr__(cls, key: str):
-        try:
-            return cls.config[key]
-        except Exception as e:
-            Logger.e(__class__, f'No config value found for {key}')
-            raise e
-
-
-class _TwitterConfig(type):
-    config = _load_twitter_config()
 
     def __getattr__(cls, key: str):
         try:
@@ -83,10 +68,6 @@ class _DevConfig(type):
 
 
 class AWSConfig(metaclass=_AWSConfig):
-    pass
-
-
-class TwitterConfig(metaclass=_TwitterConfig):
     pass
 
 

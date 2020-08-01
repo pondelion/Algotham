@@ -18,4 +18,4 @@ class BaseTimingRule(BaseRule, metaclass=ABCMeta):
 
         while self.context.timer.get_time() < until_dt:
             self.context._updated = True
-            time.sleep(0.01)
+            time.sleep(0.0001)

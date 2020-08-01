@@ -1,3 +1,3 @@
-from .timing_rule import BaseTimingRule
-from .stock_selection_rule import BaseStockSelectionRule
-from .volume_rule import BaseVolumeRule
+from .timing_rule.base_timing_rule import BaseTimingRule
+from .stock_selection_rule.base_stock_selection_rule import BaseStockSelectionRule
+from .volume_rule.base_volume_rule import BaseVolumeRule

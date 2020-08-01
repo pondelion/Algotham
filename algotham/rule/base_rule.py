@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
-from ..algo_runner.algo_system import Algo
+# from ..algo.algo import Algo
 
 
 class BaseRule(metaclass=ABCMeta):
@@ -10,10 +10,10 @@ class BaseRule(metaclass=ABCMeta):
 
     def set_context(
         self,
-        system: Algo
+        algo #: Algo
     ) -> None:
-        self._system = system
+        self._algo = algo
 
     @property
     def context(self):
-        return self._system
+        return self._algo

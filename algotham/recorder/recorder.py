@@ -1,4 +1,4 @@
-import copy
+from copy import copy
 from datetime import datetime
 from typing import Dict
 
@@ -21,4 +21,5 @@ class Recorder:
         ]
         self._transaction_history = []
 
-    def record(self, )
+    def record(self, portfolio):
+        raise NotImplementedError

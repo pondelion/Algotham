@@ -1,6 +1,7 @@
-from overrides import overrides
 import os
 import time
+
+from overrides import overrides
 
 from .observer import Observer
 

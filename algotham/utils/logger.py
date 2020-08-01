@@ -14,6 +14,7 @@ DEFAULT_DEV_FILEPATH = os.path.join(
     'config/dev.yml'
 )
 dev_conf = yaml.safe_load(open(DEFAULT_DEV_FILEPATH))
+os.makedirs(dev_conf['LOGDIR'], exist_ok=True)
 filename = os.path.join(
     dev_conf['LOGDIR'],
     f'{datetime.now().strftime("%Y%m%d_%H%M%S")}.log',

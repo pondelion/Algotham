@@ -1,5 +1,5 @@
-import system
-system.path.append('..')
+import sys
+sys.path.append('..')
 import random
 from datetime import datetime, timedelta
 from typing import List
@@ -13,8 +13,8 @@ from algotham.rule import (
     BaseVolumeRule
 )
 from algotham.data.stock import Stock
-from algotham.algo_runner import SimulatedAlgo
-
+from algotham.algo import SimulatedAlgo
+from algotham.simulator.backtest import BackTest
 
 # 毎日マーケットオープン時に候補銘柄からランダムに銘柄抽出し、ランダムなボリュームで売買行う例
 
@@ -34,30 +34,33 @@ class RandomStockSelectionRule(BaseStockSelectionRule):
         return stocks
 
 
-start_dt = 
+start_dt = datetime(2020, 4, 1)
+end_dt = datetime.now()
 
 
 class MarketOpeningTimingRule(BaseTimingRule):
 
     def __init__(self):
         self._next_opening = start_dt
-        self._next_opening.hour = 9
-        self._next_opening.minute = 0
-        self._next_opening.second = 0
+        self._next_opening = self._next_opening.replace(
+            hour=9,
+            minute=0,
+            second=0
+        )
 
     @overrides
     def wait_for_next(self):
         self._next_opening += timedelta(days=1)
         while not jpbizday.is_bizday(self._next_opening):
             self._next_opening += timedelta(days=1)
-            print(f'waing until {self._next_opening }')
+        print(f'waiting until {self._next_opening }')
         self.wait_until(self._next_opening)
 
 
 class RandomVolumeRule(BaseVolumeRule):
 
     @overrides
-    def decice_volume(self, stock: Stock, dt: datetime) -> int:
+    def decide_volume(self, stock: Stock, dt: datetime) -> int:
         return random.randint(-5, 5)
 
 
@@ -69,8 +72,8 @@ random_trade_system = SimulatedAlgo(
 
 back_test = BackTest(
     random_trade_system,
-    start_dt=,
-    end_dt=,
+    start_dt=start_dt,
+    end_dt=end_dt,
 )
-backtest.run()
-result = backtest.result()
+back_test.run()
+result = back_test.result()
