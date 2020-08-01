@@ -55,7 +55,6 @@ class Stock(CSVHistoricalData):
             df['日付'] = pd.to_datetime(df['日付'])
             df.set_index('日付', inplace=True)
         #print(df)
-        print(self.code)
         try:
             dt_idx = datetime(dt.year, dt.month, dt.day)
             stock_price = df.loc[dt_idx, '始値']

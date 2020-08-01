@@ -20,12 +20,34 @@ class Portfolio:
 
     def update(
         self,
-        cash: int,
+        cash_diff: int,
         stock: Stock,
-        volume: int,
+        volume_diff: int,
     ) -> None:
-        self._cash += cash
+        self._cash += cash_diff
         if stock.code in self._stock_volume:
-            self._stock_volume[stock.code] += volume
+            self._stock_volume[stock.code] += volume_diff
         else:
-            self._stock_volume[stock.code] = volume
+            self._stock_volume[stock.code] = volume_diff
+
+    @property
+    def cash(self):
+        return self._cash
+
+    @property
+    def stock_volume(self):
+        return self._stock_volume
+
+    def evaluate_total_asset(self, dt: datetime) -> int:
+        cash = self._cash
+
+        for code, volume in self._stock_volume.items():
+            try:
+                stock_price = Stock(code=code)[dt]
+                cash += stock_price * volume
+            except Exception:
+                raise StockDataNotFoundException(
+                    f'code = {code}, datetime = {dt}'
+                )
+
+        return cash

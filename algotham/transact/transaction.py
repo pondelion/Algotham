@@ -50,12 +50,11 @@ class BaseTransaction(metaclass=ABCMeta):
         if self._algo is None:
             raise Exception('context is not set')
 
-        transact = True
-
         skip_reason = ''
 
         while True:
             if volume == 0:
+                skip_reason = 'volume is 0'
                 break
 
             try:

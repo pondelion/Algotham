@@ -81,3 +81,13 @@ back_test = BackTest(
 back_test.run()
 result = back_test.result()
 print('done')
+
+print(result.transaction_history)
+portfolio_history = result.portfolio_history
+import pandas as pd
+df_portfolio_history = pd.DataFrame({
+    'datetime': portfolio_history['datetime'],
+    'total_asset': portfolio_history['total_asset']
+})
+df_portfolio_history['datetime'] = pd.to_datetime(df_portfolio_history['datetime'])
+print(df_portfolio_history)
