@@ -10,6 +10,10 @@ from ..timer import (
 from ..portfolio import Portfolio
 from ..data.stock import Stock
 from ..recorder import Recorder
+from ..transact import (
+    BaseTransaction,
+    DefaultTransaction
+)
 
 
 class Algo:
@@ -19,17 +23,21 @@ class Algo:
         timing_rule: BaseTimingRule,
         stock_selection_rule: BaseStockSelectionRule,
         volume_rule: BaseVolumeRule,
-        init_portfolio: Portfolio,
+        init_portfolio: Portfolio = Portfolio(),
+        transaction: BaseTransaction = DefaultTransaction(),
         timer: BaseTimer = RealtimeTimer()
     ):
         self._timing_rule = timing_rule
         self._stock_selection_rule = stock_selection_rule
         self._volume_rule = volume_rule
         self._timer = timer
+        self._transaction = transaction
         self._timing_rule.set_context(self)
         self._stock_selection_rule.set_context(self)
         self._volume_rule.set_context(self)
+        self._transaction.set_context(self)
         self._recorder = Recorder()
+        self._portfolio = init_portfolio
         self._updated = False
 
     def run(self):
@@ -49,8 +57,11 @@ class Algo:
                     stock,
                     self.timer.get_time()
                 )
-                if self._transact(stock, volume):
-                    pass
+                self._transaction.transact(
+                    self.timer.get_time(),
+                    stock,
+                    volume
+                )
 
     @property
     def timer(self):
@@ -59,10 +70,3 @@ class Algo:
     @property
     def recorder(self):
         return self._recorder
-
-    def _transact(
-        self,
-        stock: Stock,
-        volume: int
-    ) -> bool:
-        pass

@@ -18,7 +18,7 @@ class BackTest:
     def run(self):
 
         cur_dt = self._start_dt
-        self._algo_system.set_time(self._start_dt, force_update=True)
+        self._algo_system.set_time(self._start_dt, wait_update_reflected=False)
 
         self._algo_system.run()
 
@@ -27,7 +27,6 @@ class BackTest:
             cur_dt += timedelta(minutes=1)
             # if cur_dt.minute == 0 and cur_dt.second == 0:
             #     print(cur_dt)
-        print('done')
 
     def result(self):
         return self._algo_system.recorder

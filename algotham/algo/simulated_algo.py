@@ -12,6 +12,10 @@ from ..timer import (
     SimulatedTimer,
 )
 from ..portfolio import Portfolio
+from ..transact import (
+    BaseTransaction,
+    DefaultTransaction
+)
 
 
 class SimulatedAlgo(Algo):
@@ -22,22 +26,24 @@ class SimulatedAlgo(Algo):
         stock_selection_rule: BaseStockSelectionRule,
         volume_rule: BaseVolumeRule,
         init_portfolio: Portfolio = Portfolio(),
+        transaction: BaseTransaction = DefaultTransaction(),
     ):
         super().__init__(
             timing_rule,
             stock_selection_rule,
             volume_rule,
             init_portfolio,
+            transaction,
             SimulatedTimer()
         )
 
     def set_time(
         self,
         dt: datetime,
-        force_update=False
+        wait_update_reflected=True
     ) -> None:
         self.timer.set_time(dt)
-        if force_update:
+        if not wait_update_reflected:
             return
         self._updated = False
         while not self._updated:
