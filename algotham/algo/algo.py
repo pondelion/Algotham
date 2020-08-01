@@ -50,7 +50,9 @@ class Algo:
         while True:
             self._timing_rule.wait_for_next()
 
-            selected_stocks = self._stock_selection_rule.select_stocks()
+            selected_stocks = self._stock_selection_rule.select_stocks(
+                self.timer.get_time()
+            )
 
             for stock in selected_stocks:
                 volume = self._volume_rule.decide_volume(
@@ -70,3 +72,7 @@ class Algo:
     @property
     def recorder(self):
         return self._recorder
+
+    @property
+    def portfolio(self):
+        return self._portfolio

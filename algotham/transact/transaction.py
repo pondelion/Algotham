@@ -11,8 +11,9 @@ class BaseTransaction(metaclass=ABCMeta):
 
     TAG = 'BaseTransaction'
 
-    def __init(self):
+    def __init__(self, transaction_cost: int = 0):
         self._algo = None
+        self._transaction_cost = transaction_cost
 
     def set_context(
         self,
@@ -46,8 +47,9 @@ class BaseTransaction(metaclass=ABCMeta):
         if self._algo is None:
             raise Exception('context is not set')
 
-        if self._algo._portfolio.transact(stock, volume):
-            self._algo.recorder.record(dt, stock, volume)
+        if self._algo._portfolio.transact(dt, stock, volume, self._transaction_cost):
+            self._algo.recorder.record_transaction(dt, stock, volume)
+            self._algo.recorder.record_portfolio(dt, self._algo.portfolio)
         else:
             Logger.i(
                 BaseTransaction.TAG,

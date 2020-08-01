@@ -15,6 +15,8 @@ from algotham.rule import (
 from algotham.data.stock import Stock
 from algotham.algo import SimulatedAlgo
 from algotham.simulator.backtest import BackTest
+from algotham.portfolio import Portfolio
+
 
 # 毎日マーケットオープン時に候補銘柄からランダムに銘柄抽出し、ランダムなボリュームで売買行う例
 
@@ -24,7 +26,7 @@ class RandomStockSelectionRule(BaseStockSelectionRule):
     STOCK_CANDIDATES = [3853, 3987, 6029, 4120, 3747]
 
     @overrides
-    def select_stocks(self) -> List[Stock]:
+    def select_stocks(self, dt: datetime) -> List[Stock]:
 
         selected_codes = random.sample(
             RandomStockSelectionRule.STOCK_CANDIDATES,
@@ -34,8 +36,8 @@ class RandomStockSelectionRule(BaseStockSelectionRule):
         return stocks
 
 
-start_dt = datetime(2020, 4, 1)
-end_dt = datetime.now()
+start_dt = datetime(2019, 4, 1)
+end_dt = datetime(2019, 7, 1)
 
 
 class MarketOpeningTimingRule(BaseTimingRule):
@@ -68,6 +70,7 @@ random_trade_system = SimulatedAlgo(
     timing_rule=MarketOpeningTimingRule(),
     stock_selection_rule=RandomStockSelectionRule(),
     volume_rule=RandomVolumeRule(),
+    init_portfolio=Portfolio(cash=100000)
 )
 
 back_test = BackTest(
@@ -77,3 +80,4 @@ back_test = BackTest(
 )
 back_test.run()
 result = back_test.result()
+print('done')

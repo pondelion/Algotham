@@ -2,6 +2,9 @@ from copy import copy
 from datetime import datetime
 from typing import Dict
 
+from ..portfolio import Portfolio
+from ..data.stock import Stock
+
 
 class Recorder:
 
@@ -21,5 +24,17 @@ class Recorder:
         ]
         self._transaction_history = []
 
-    def record(self, portfolio):
-        raise NotImplementedError
+    def record_portfolio(
+        self,
+        dt: datetime,
+        portfolio: Portfolio
+    ) -> None:
+        pass
+
+    def record_transaction(
+        self,
+        dt,
+        stock: Stock,
+        volume: int,
+    ) -> None:
+        pass
