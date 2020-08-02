@@ -85,6 +85,7 @@ class BaseTransaction(metaclass=ABCMeta):
             self._algo.recorder.record_portfolio(dt, self._algo.portfolio)
             return
 
+        self._algo.recorder.record_portfolio(dt, self._algo.portfolio)
         Logger.i(
             BaseTransaction.TAG,
             f'Skipped transaction, stock={stock.code}, volume={volume} : {skip_reason}'
