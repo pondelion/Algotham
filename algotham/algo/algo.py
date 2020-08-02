@@ -55,12 +55,12 @@ class Algo:
             )
 
             for stock in selected_stocks:
+                dt = self.timer.get_time()
                 volume = self._volume_rule.decide_volume(
-                    stock,
-                    self.timer.get_time()
+                    stock, dt
                 )
                 self._transaction.transact(
-                    self.timer.get_time(),
+                    dt,
                     stock,
                     volume
                 )
