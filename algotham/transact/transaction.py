@@ -79,7 +79,7 @@ class BaseTransaction(metaclass=ABCMeta):
 
             cash = -(price + self._transaction_cost)
 
-            print(f'buy/sell : code={stock.code} : volume={volume} : cash={cash} : ')
+            print(f'buy/sell : {dt} : code={stock.code} : volume={volume} : cash={cash} : ')
             self._algo._portfolio.update(cash, stock, volume)
             self._algo.recorder.record_transaction(dt, stock, volume)
             self._algo.recorder.record_portfolio(dt, self._algo.portfolio)

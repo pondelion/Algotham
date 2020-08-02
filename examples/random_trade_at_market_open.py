@@ -91,3 +91,4 @@ df_portfolio_history = pd.DataFrame({
 })
 df_portfolio_history['datetime'] = pd.to_datetime(df_portfolio_history['datetime'])
 print(df_portfolio_history)
+print(portfolio_history['stock_volume'])

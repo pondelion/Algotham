@@ -22,7 +22,7 @@ class Recorder:
         portfolio: Portfolio
     ) -> None:
         self._portfolio_history['datetime'].append(dt)
-        self._portfolio_history['stock_volume'].append(portfolio.stock_volume)
+        self._portfolio_history['stock_volume'].append(copy(portfolio.stock_volume))
         try:
             total_asset = portfolio.evaluate_total_asset(dt)
         except StockDataNotFoundException:
