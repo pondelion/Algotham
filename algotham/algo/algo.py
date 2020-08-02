@@ -1,4 +1,5 @@
 import threading
+from copy import deepcopy
 
 from ..rule.timing_rule.base_timing_rule import BaseTimingRule
 from ..rule.stock_selection_rule.base_stock_selection_rule import BaseStockSelectionRule
@@ -39,6 +40,7 @@ class Algo:
         self._recorder = Recorder()
         self._portfolio = init_portfolio
         self._updated = False
+        self._init_portfolio = deepcopy(init_portfolio)
 
     def run(self):
         self._thread = threading.Thread(
@@ -76,3 +78,7 @@ class Algo:
     @property
     def portfolio(self):
         return self._portfolio
+
+    def reset(self):
+        self._portfolio = deepcopy(self._init_portfolio)
+        self._recorder.reset()

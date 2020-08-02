@@ -66,19 +66,18 @@ class RandomVolumeRule(BaseVolumeRule):
         return random.randint(-5, 5)
 
 
-random_trade_system = SimulatedAlgo(
+random_trade_algo = SimulatedAlgo(
     timing_rule=MarketOpeningTimingRule(),
     stock_selection_rule=RandomStockSelectionRule(),
     volume_rule=RandomVolumeRule(),
     init_portfolio=Portfolio(cash=100000)
 )
 
-back_test = BackTest(
-    random_trade_system,
+back_test = BackTest(random_trade_algo)
+back_test.run(
     start_dt=start_dt,
     end_dt=end_dt,
 )
-back_test.run()
 result = back_test.result()
 print('done')
 
